@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FlowKit · n8n 中文实战工作流包 — 15 个生产级自动化模板</title>
+<style>
+  :root { --bg:#0b1020; --card:#121a33; --line:#233257; --txt:#e8eefc; --sub:#9fb0d8; --acc:#6c8cff; --acc2:#22d3a5; --warn:#ffb454; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt); font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif; line-height:1.7; }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+  header { padding:28px 0; display:flex; justify-content:space-between; align-items:center; }
+  .logo { font-weight:800; font-size:20px; letter-spacing:.5px; }
+  .logo span { color:var(--acc2); }
+  .btn { display:inline-block; background:var(--acc); color:#fff; text-decoration:none; padding:10px 22px; border-radius:10px; font-weight:600; border:0; cursor:pointer; }
+  .btn.ghost { background:transparent; border:1px solid var(--line); color:var(--txt); }
+  .btn.big { font-size:17px; padding:13px 30px; }
+  .hero { text-align:center; padding:64px 0 40px; }
+  .hero h1 { font-size:40px; line-height:1.25; font-weight:800; }
+  .hero h1 em { font-style:normal; background:linear-gradient(90deg,var(--acc),var(--acc2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero p.sub { color:var(--sub); font-size:18px; margin:18px auto 28px; max-width:640px; }
+  .pills { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:34px; }
+  .pill { border:1px solid var(--line); border-radius:999px; padding:5px 14px; font-size:13px; color:var(--sub); }
+  .stats { display:flex; gap:0; justify-content:center; border:1px solid var(--line); border-radius:16px; overflow:hidden; max-width:720px; margin:0 auto; background:var(--card); }
+  .stat { flex:1; padding:18px; text-align:center; border-right:1px solid var(--line); }
+  .stat:last-child { border-right:0; }
+  .stat b { font-size:26px; color:var(--acc2); }
+  .stat i { display:block; font-style:normal; color:var(--sub); font-size:13px; }
+  h2.sec { text-align:center; font-size:28px; margin:70px 0 12px; }
+  p.secdesc { text-align:center; color:var(--sub); margin-bottom:36px; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .wcard { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; }
+  .wcard .tag { font-size:12px; color:var(--acc2); border:1px solid rgba(34,211,165,.4); border-radius:6px; padding:1px 8px; }
+  .wcard .tag.free { color:var(--warn); border-color:rgba(255,180,84,.4); }
+  .wcard h3 { font-size:16px; margin:10px 0 6px; }
+  .wcard p { font-size:13px; color:var(--sub); }
+  .wcard .need { margin-top:10px; font-size:12px; color:#7f92c0; }
+  .plans { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch; }
+  .plan { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:28px 24px; display:flex; flex-direction:column; }
+  .plan.hot { border-color:var(--acc2); box-shadow:0 0 40px rgba(34,211,165,.12); position:relative; }
+  .plan.hot::before { content:"最受欢迎"; position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--acc2); color:#04211a; font-size:12px; font-weight:700; padding:2px 14px; border-radius:999px; }
+  .plan h3 { font-size:18px; }
+  .price { font-size:36px; font-weight:800; margin:12px 0 2px; }
+  .price small { font-size:14px; color:var(--sub); font-weight:400; }
+  .plan ul { list-style:none; margin:16px 0 22px; flex:1; }
+  .plan li { font-size:14px; color:var(--sub); padding:5px 0 5px 24px; position:relative; }
+  .plan li::before { content:"✓"; position:absolute; left:0; color:var(--acc2); font-weight:700; }
+  .plan .btn { text-align:center; }
+  .faq { max-width:760px; margin:0 auto; }
+  .faq details { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .faq summary { cursor:pointer; font-weight:600; }
+  .faq p { color:var(--sub); font-size:14px; margin-top:10px; }
+  .cta { text-align:center; margin:60px 0 20px; }
+  footer { border-top:1px solid var(--line); margin-top:70px; padding:30px 0 46px; color:#7f92c0; font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  @media (max-width:860px){ .grid,.plans{grid-template-columns:1fr;} .hero h1{font-size:30px;} .stats{flex-direction:column;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">Flow<span>Kit</span></div>
+    <a class="btn ghost" href="#plans">获取</a>
+  </header>
+
+  <section class="hero">
+    <h1>n8n 太强，但中文资料太少？<br><em>15 个生产级中文工作流</em>，直接导入就能跑</h1>
+    <p class="sub">不用从零搭流程：AI 日报、网页监控、价格预警、简历初筛、发票归档、智能客服……每个都带逐节点中文说明，免费版 3 个零配置开箱即跑。</p>
+    <div class="pills">
+      <span class="pill">✅ 免费版可先跑通再买</span><span class="pill">🈶 全中文注释与文档</span><span class="pill">🔑 BYOK：Key 全部走你自己的账号</span><span class="pill">♾️ 买断制 + 后续更新</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>15</b><i>工作流模板</i></div>
+      <div class="stat"><b>0</b><i>免费版所需配置</i></div>
+      <div class="stat"><b>10 分钟</b><i>从安装到跑通</i></div>
+      <div class="stat"><b>¥99</b><i>早鸟价买断</i></div>
+    </div>
+  </section>
+
+  <h2 class="sec">包里有什么</h2>
+  <p class="secdesc">5 个系列 · 15 个工作流 · 每个节点都有中文注释卡片（导入后在画布上直接可见）</p>
+  <div class="grid">
+    <div class="wcard"><span class="tag free">免费</span><h3>① RSS 技术日报生成器</h3><p>抓 Hacker News / 36kr，自动生成中文日报 HTML</p><div class="need">零配置开箱即跑</div></div>
+    <div class="wcard"><span class="tag free">免费</span><h3>② 网页变更监控器</h3><p>盯任意页面，内容变化输出信号，可接任意推送</p><div class="need">零配置开箱即跑</div></div>
+    <div class="wcard"><span class="tag free">免费</span><h3>③ Webhook 线索收集器</h3><p>给落地页一个表单接口，POST 即登记线索</p><div class="need">零配置开箱即跑</div></div>
+    <div class="wcard"><span class="tag">信息日报</span><h3>Pro 04 · AI 行业快报</h3><p>AI 逐条点评 HN 新帖，打包推送到飞书群</p><div class="need">DeepSeek Key + 飞书机器人</div></div>
+    <div class="wcard"><span class="tag">监控预警</span><h3>Pro 05 · 页面监控→微信</h3><p>哈希比对网页变化，PushPlus 推到微信</p><div class="need">PushPlus Token（免费）</div></div>
+    <div class="wcard"><span class="tag">监控预警</span><h3>Pro 06 · 价格监控→钉钉</h3><p>抓商品页价格，变化即播报到钉钉群</p><div class="need">钉钉机器人（免费）</div></div>
+    <div class="wcard"><span class="tag">内容创作</span><h3>Pro 07 · 热点选题雷达</h3><p>36kr 热点 → AI 产出 5 个带切入角度的选题</p><div class="need">DeepSeek Key + 飞书机器人</div></div>
+    <div class="wcard"><span class="tag">内容创作</span><h3>Pro 08 · 公众号改写助手</h3><p>POST 稿件进来，返回指定风格改写稿</p><div class="need">DeepSeek Key</div></div>
+    <div class="wcard"><span class="tag">内容创作</span><h3>Pro 13 · 一稿多发三平台</h3><p>一篇文章改出小红书/公众号/知乎三版草稿</p><div class="need">DeepSeek Key</div></div>
+    <div class="wcard"><span class="tag">办公提效</span><h3>Pro 09 · 简历初筛打分</h3><p>简历 vs JD 自动打分，输出面试建议 JSON</p><div class="need">DeepSeek Key</div></div>
+    <div class="wcard"><span class="tag">办公提效</span><h3>Pro 10 · 发票 OCR 归档</h3><p>发票图片进 → 结构化台账 CSV 出</p><div class="need">任选 OCR API</div></div>
+    <div class="wcard"><span class="tag">办公提效</span><h3>Pro 12 · AI 周报生成器</h3><p>任务清单自动变周报，定时推送</p><div class="need">DeepSeek Key + 飞书机器人</div></div>
+    <div class="wcard"><span class="tag">客服销售</span><h3>Pro 11 · 智能客服问答</h3><p>FAQ 命中秒回，未命中 AI 兜底，省钱设计</p><div class="need">DeepSeek Key</div></div>
+    <div class="wcard"><span class="tag">电商运营</span><h3>Pro 14 · 订单对账异常检测</h3><p>自动核对订单金额与状态，异常出报表</p><div class="need">演示源开箱即用</div></div>
+    <div class="wcard"><span class="tag">信息日报</span><h3>Pro 15 · GitHub 趋势日报</h3><p>每周新星仓库 AI 点评，日报可直接发内容号</p><div class="need">DeepSeek Key + 飞书机器人</div></div>
+  </div>
+
+  <h2 class="sec" id="plans">获取方式</h2>
+  <p class="secdesc">先跑免费版，觉得值再买完整包；所有模板买断制，无订阅</p>
+  <div class="plans">
+    <div class="plan">
+      <h3>免费体验</h3>
+      <div class="price">¥0</div><small>3 个工作流 + 导入指南</small>
+      <ul>
+        <li>3 个零配置工作流（本页上方标"免费"）</li>
+        <li>《安装与导入指南》10 分钟跑通</li>
+        <li>感受 n8n 工作流长什么样</li>
+      </ul>
+      <!-- 💡 上线时把 href 换成你的 GitHub 仓库链接或网盘链接 -->
+      <a class="btn ghost" href="https://github.com/yh1988/flowkit-free" target="_blank" rel="noopener">领取免费版</a>
+    </div>
+    <div class="plan hot">
+      <h3>完整包（早鸟）</h3>
+      <div class="price">¥99 <small style="text-decoration:line-through">¥149</small></div><small>一次性买断 · 含后续更新</small>
+      <ul>
+        <li>15 个工作流全部源文件（JSON）</li>
+        <li>每个工作流逐节点中文文档</li>
+        <li>《安装与导入指南》+ 常见问题</li>
+        <li>后续新增模板免费更新</li>
+        <li>购买群答疑</li>
+      </ul>
+      <!-- 💡 闲鱼商品链接（2026-10-28 上架）：如部署服务单独开商品，替换此 href -->
+      <a class="btn big" href="https://m.tb.cn/h.jfry0pB?tk=DRgwTyLZ36M" target="_blank" rel="noopener">立即获取完整包</a>
+    </div>
+    <div class="plan">
+      <h3>部署服务</h3>
+      <div class="price">¥299 <small>/次</small></div><small>远程一对一</small>
+      <ul>
+        <li>远程帮你装好 n8n（VPS/本机均可）</li>
+        <li>导入模板并调通你指定的 1 个工作流</li>
+        <li>30 分钟答疑（怎么改成你的场景）</li>
+        <li>送完整包一份</li>
+      </ul>
+      <!-- 💡 暂指向完整包商品（拍下备注"部署服务"）；单独开商品后替换 -->
+      <a class="btn ghost" href="https://m.tb.cn/h.jfry0pB?tk=DRgwTyLZ36M" target="_blank" rel="noopener">预约部署服务</a>
+    </div>
+  </div>
+
+  <h2 class="sec">常见问题</h2>
+  <div class="faq">
+    <details open><summary>我完全没用过 n8n，能上手吗？</summary><p>可以。指南从安装讲到导入，免费版 3 个工作流不需要任何 API Key，导入后点一下就能看到运行结果；Pro 版的 Key 都集中在「配置」一个节点里替换。</p></details>
+    <details><summary>AI 部分要不要额外付你钱？</summary><p>不用。模板采用 BYOK（Bring Your Own Key）设计：大模型调用走你自己的 DeepSeek/OpenAI 账号，成本透明，模板本身不抽成。</p></details>
+    <details><summary>和工作流平台的付费版有什么区别？</summary><p>这些是导入你自己 n8n 的模板资产：数据在你自己的环境里，无按月订阅、无执行次数限制，适合对数据隐私有要求的个人与小团队。</p></details>
+    <details><summary>怎么交付？可以退款吗？</summary><p>付款后发 JSON 文件包 + 文档（自动发货）。数字商品一经发货不退，但购买前你可以用 3 个免费工作流充分验证质量。</p></details>
+    <details><summary>会持续更新吗？</summary><p>会。买断含后续新增模板与修订；更新通过购买群或邮箱发放，不二次收费。</p></details>
+  </div>
+
+  <div class="cta">
+    <a class="btn big" href="#plans">先领免费版试试 →</a>
+  </div>
+
+  <footer>
+    <div>FlowKit · n8n 中文实战工作流包 · 模板为自产原创内容</div>
+    <div>联系：<!-- 💡 替换成你的微信号/公众号/邮箱 --> your-contact@example.com</div>
+  </footer>
+</div>
+</body>
+</html>
